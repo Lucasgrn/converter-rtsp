@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "qr-code",
+  "name": "converter-rtsp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,9 +13,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "fs": "^0.0.1-security",
-    "qrcode": "^1.5.1",
-    "shelljs": "^0.8.5"
+    "rtsp-stream-hls": "^1.0.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
