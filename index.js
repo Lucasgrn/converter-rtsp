@@ -13,59 +13,30 @@ server.use(express.json());
 server.use(express.static(path.join(__dirname, 'public')));
 
 server.post('/start', (req, res) => {
-  const { username, password, ip, url } = req.body
+  const { url } = req.body
 
   const options = {
     url: url,
-    segmentFolder: __dirname + '/public/segment',  //The path is where the .m3u8 and ts files will be stored.
-    ffmpegOptions: {  //ffmpeg option.
-      // If you have a ffmpeg option you want to add, write it down here.
-      '-hls_time': '15', // If the same option is set, it is possible to change the value.
+    segmentFolder: __dirname + '/public/segment',  // Diretório onde estará o arquivo .m3u8 e seus segmentos
+    ffmpegOptions: {
+      '-hls_time': '7', // Tamanho em segundos de cada segmento
       'ultrafast': undefined // single option other than the key-value type, it can be set by setting the value to undefined.
     }
   }
   const stream = new VideoStream(options);
   stream.start();
-  res.status(200).json({ url: `${process.env.BASE_URL}/segment/stream.m3u8` })
+  res.status(200).json({ url: `${process.env.BASE_URL}/segment/stream.m3u8`, stream: stream })
 
-
-  // try {
-  //   shelljs.exec(`ffmpeg -v verbose  -i "rtsp://${username}:${password}@${ip}:554/cam/realmonitor?channel=1&subtype=0" -vf scale=1920:1080  -vcodec libx264 -r 25 -b:v 1000000 -crf 31 -acodec aac  -sc_threshold 0 -f hls  -hls_time 5  -segment_time 5 -hls_list_size 5 "public/stream.m3u8"`,
-  //     function (code, stdout, stderr) {
-  //       console.log('Exit code:', code);
-  //       console.log('Program output:', stdout);
-  //       console.log('Program stderr:', stderr);
-  //     })
-  //   res.status(200).send({ url: `${process.env.BASE_URL}/stream.m3u8` })
-  // } catch (error) {
-  //   console.log(error)
-  //   res.status(500).send('Error')
-  // }
 })
 
-server.delete('/delete', async (req, res) => {
-
-
-
-
-
-
-
-
-
-
-  // try {
-  //   let files = fs.readdirSync('public')
-  //   for (let i in files) {
-  //     fs.unlinkSync(`public/${files[i]}`)
-  //   }
-  //   res.status(200).send('Apagado com sucesso!')
-  // } catch (error) {
-  //   console.log(error)
-  //   res.status(500).send('Error')
-  // }
+server.post('/stop', (req, res) => {
+  const { stream } = req.body
+  try {
+    stream.stop()
+    res.status(200).json({ success: 'The conversion has been stopped!' })
+  } catch (error) {
+    res.status(500).json({ error: error })
+  }
 })
-
-server.use(express.static('public'));
 
 server.listen(1337, () => console.log("Running"));
