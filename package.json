@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "rtsp-relay": "^1.7.0",
     "rtsp-stream-hls": "^1.0.7"
   },
   "devDependencies": {
