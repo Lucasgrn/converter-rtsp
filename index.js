@@ -9,7 +9,6 @@ app.ws('/api/stream/:camera', (ws, req) => {
   return (
     proxy({
       url: `rtsp://${req.params.camera}/cam/realmonitor?channel=1&subtype=0`,
-      additionalFlags: ['-q', '1'],
     })(ws)
   )
 }
@@ -22,7 +21,7 @@ app.get('/:camera', (req, res) =>
   <script src='${scriptUrl}'></script>
   <script>
     loadPlayer({
-      url: 'wss://' + location.host + '/api/stream/${req.params.camera}',
+      url: 'ws://' + location.host + '/api/stream/${req.params.camera}',
       canvas: document.getElementById('canvas')
     });
   </script>
