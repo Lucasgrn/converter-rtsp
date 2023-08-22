@@ -10,7 +10,7 @@ app.ws('/api/stream/:camera', (ws, req) => {
     proxy({
       url: `rtsp://${req.params.camera}/cam/realmonitor?channel=1&subtype=0`,
       additionalFlags: ['-q', '1'],
-    })(wss)
+    })(ws)
   )
 }
 );
