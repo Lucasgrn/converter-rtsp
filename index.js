@@ -3,7 +3,7 @@ import rtspRelay from 'rtsp-relay'
 import cors from 'cors'
 const app = express();
 
-const { proxy, scriptUrl } = rtspRelay(app);
+const { proxy, scriptUrl } = rtspRelay(app, app);
 app.use(cors())
 app.ws('/api/stream/:camera', (ws, req) => {
   return (
