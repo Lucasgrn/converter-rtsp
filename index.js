@@ -1,6 +1,7 @@
 import express from 'express';
 import rtspRelay from 'rtsp-relay'
 import cors from 'cors'
+import https from 'https'
 const app = express();
 
 const { proxy, scriptUrl } = rtspRelay(app);
@@ -28,4 +29,4 @@ app.get('/:camera', (req, res) =>
 `),
 );
 
-app.listen(2000);
+https.createServer({}, app).listen(5500)
