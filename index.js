@@ -8,7 +8,7 @@ app.use(cors())
 app.ws('/api/stream/:camera', (ws, req) => {
   return (
     proxy({
-      url: `rtsp://${req.params.camera}/cam/realmonitor?channel=1&subtype=0`,
+      url: `rtsps://${req.params.camera}/cam/realmonitor?channel=1&subtype=0`,
     })(ws)
   )
 }
