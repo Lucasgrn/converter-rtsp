@@ -1,7 +1,6 @@
 import express from 'express';
 import rtspRelay from 'rtsp-relay'
 import cors from 'cors'
-import loadPlayer from 'rtsp-relay/browser'
 const app = express();
 
 const { proxy, scriptUrl } = rtspRelay(app);
